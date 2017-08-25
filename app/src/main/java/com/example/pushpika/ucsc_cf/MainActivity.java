@@ -1,6 +1,7 @@
 package com.example.pushpika.ucsc_cf;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CardLoadingAdapter adapter;
     private List<CompanyCard> albumList;
-    public static DatabaseReference myRef;
+    public static DatabaseReference myRef,userRef;
+    public static String userEmailAddress;
+    public static boolean isAdmin = false;
 
 
     @Override
@@ -40,14 +43,19 @@ public class MainActivity extends AppCompatActivity {
         albumList = new ArrayList<>();
         adapter = new CardLoadingAdapter(this, albumList);
 
+        //firebase init
+        myRef = FirebaseDatabase.getInstance().getReference().child("Stoles");
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        setEmailAddress();
+        setAdminList();
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        //firebase init
-        myRef = FirebaseDatabase.getInstance().getReference().child("Stoles");
+
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -81,6 +89,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setEmailAddress(){
+
+        SharedPreferences settings = getSharedPreferences("prefs", 0);
+        boolean firstRun = settings.getBoolean("firstRun", true);
+
+        //final Intent intent = new Intent(this, LoginActivity.class);
+
+        userEmailAddress = settings.getString("Email_Address","no");
+
+        if (firstRun) {
+            // here run your first-time instructions, for example :
+            Intent intent = new Intent(this,EmailAddressEntryActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+
+    }
     private void prepareAlbums() {
 
         myRef.addListenerForSingleValueEvent(
@@ -117,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
             CompanyCard a = new CompanyCard(singleUser.get("stoleName").toString(),
                     singleUser.get("isAvailable").toString(),
-                    "authEmails",
+                    singleUser.get("authEmails").toString(),
                     (long)singleUser.get("stoleNumber"),
                     i,
                     covers[0]);
@@ -137,6 +163,34 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    private void setAdminList(){
+
+        userRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of users in datasnapshot
+                        List<Object> users= (List<Object>) dataSnapshot.getValue();
+
+                        for (Object entry : users){
+
+                            //Get user map
+                            Map singleUser = (Map) entry;
+                            //Get phone field and append to list
+
+                            if (singleUser.get("email").toString().equals(userEmailAddress)){
+                                isAdmin = true;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
+
+    }
 
     /**
      * RecyclerView item decoration - give equal margin around grid item

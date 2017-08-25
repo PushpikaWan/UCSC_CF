@@ -1,7 +1,9 @@
 package com.example.pushpika.ucsc_cf;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import static com.example.pushpika.ucsc_cf.MainActivity.isAdmin;
 import static com.example.pushpika.ucsc_cf.MainActivity.myRef;
 
 /**
@@ -83,18 +86,40 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("click deseert --> ", "at : "+position+" quantity :");
-                try {
-                    if (albumList.get(position).getIsAvailable().equals("Yes")){
-                        myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("No");
-                    }
-                    else{
-                        myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("Yes");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+//                Log.d("click deseert --> ", "at : "+position+" quantity :");
+//
+//                Log.d("Card Activity:",albumList.get(position).getAuthorizedUser());
+                if( albumList.get(position).getAuthorizedUser().equals(MainActivity.userEmailAddress) || isAdmin){
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setMessage("Are you sure you want to change this state ?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //update
+
+                                    try {
+                                        if (albumList.get(position).getIsAvailable().equals("Yes")){
+                                            myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("No");
+                                        }
+                                        else{
+                                            myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("Yes");
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
-               //change state of company when required info available
+
 
             }
         });
