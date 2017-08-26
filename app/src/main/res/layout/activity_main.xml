@@ -9,13 +9,13 @@
 
     <include layout="@layout/content_main" />
 
-    <!-- <android.support.design.widget.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_layers_24dp"
         app:layout_anchorGravity="bottom|right|end"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:onClick="goOrders"/>  -->
+        android:onClick="goFloors"/>
 
 </android.support.design.widget.CoordinatorLayout>

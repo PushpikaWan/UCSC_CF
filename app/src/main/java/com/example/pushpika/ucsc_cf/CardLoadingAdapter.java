@@ -30,7 +30,7 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
     private List<CompanyCard> albumList;
 
     public class MyHorizontalViewHolder extends RecyclerView.ViewHolder {
-        public TextView stoleName, availability;
+        public TextView stoleName, stoleNumber,availability, availabilityColor;
         public ImageView thumbnail;
         public CardView cardView;
 
@@ -38,7 +38,9 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
         public MyHorizontalViewHolder(View view) {
             super(view);
             stoleName = (TextView) view.findViewById(R.id.stole_name);
+            stoleNumber = (TextView) view.findViewById(R.id.stole_number);
             availability = (TextView) view.findViewById(R.id.availability);
+            availabilityColor = (TextView) view.findViewById(R.id.availability_color);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             cardView = (CardView) view.findViewById(R.id.card_view);
         }
@@ -64,13 +66,14 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
     @Override
     public void onBindViewHolder(final CardLoadingAdapter.MyHorizontalViewHolder holder, final int position) {
         final CompanyCard album = albumList.get(position);
-        holder.stoleName.setText(album.getStoleNumber()+". "+album.getStoleName());
+        holder.stoleName.setText(album.getStoleName());
         holder.availability.setText(album.getIsAvailable());
-        if (album.getIsAvailable().equals("Yes")){
-            holder.cardView.setBackgroundColor(Color.parseColor("#00FF00"));
+        holder.stoleNumber.setText("Stole No : "+album.getStoleNumber());
+        if (album.getIsAvailable().equals("Available")){
+            holder.availabilityColor.setBackgroundColor(Color.parseColor("#00FF00"));
         }
         else{
-            holder.cardView.setBackgroundColor(Color.parseColor("#FF0000"));
+            holder.availabilityColor.setBackgroundColor(Color.parseColor("#FF0000"));
         }
         //holder.quantity.getSelectedItem();
 //        if (album.getIsOrdered()){

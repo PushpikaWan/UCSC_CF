@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UCSC_CF</string>
+    <string name="app_name">UCSC CF`17</string>
     <string name="register">Register</string>
     <string name="email">Email</string>
     <string name="error_field_required">Email address is required</string>
