@@ -63,7 +63,7 @@
                             android:paddingRight="10dp"
                             android:textColor="@color/color_text"
                             android:textStyle="bold"
-                            android:textSize="30dp"
+                            android:textSize="@dimen/main_title_text"
                             android:gravity="center_vertical" />
 
                     </LinearLayout>
@@ -81,7 +81,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:textColor="@color/color_text"
-                            android:textSize="20dp"
+                            android:textSize="@dimen/sub_title_text"
                             android:gravity="center_vertical"
                             android:textAlignment="gravity" />
 
@@ -109,7 +109,7 @@
                                     android:layout_width="30dp"
                                     android:layout_height="match_parent"
                                     android:textColor="@color/color_text"
-                                    android:textSize="20dp"
+                                    android:textSize="@dimen/sub_title_text"
                                     android:gravity="center_vertical"
                                     android:textAlignment="gravity" />
 

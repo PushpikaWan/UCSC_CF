@@ -10,17 +10,19 @@ public class CompanyCard {
     private String authorizedUser;
     private long stoleNumber;
     private int key;
+    private String floor;
     private int thumbnail;
 
     public CompanyCard() {
     }
 
-    public CompanyCard(String stoleName, String isAvailable,String authorizedUser,long stoleNumber, int key, int thumbnail) {
+    public CompanyCard(String stoleName, String isAvailable,String authorizedUser,long stoleNumber, int key,String floor,int thumbnail) {
         this.stoleName = stoleName;
         this.isAvailable = isAvailable;
         this.authorizedUser = authorizedUser;
         this.stoleNumber = stoleNumber;
         this.key = key;
+        this.floor = floor;
         this.thumbnail = thumbnail;
     }
 
@@ -48,6 +50,14 @@ public class CompanyCard {
 
     public void setKey(int key){ this.key = key;}
 
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
     public int getThumbnail() {
         return thumbnail;
     }
@@ -55,4 +65,6 @@ public class CompanyCard {
     public void setThumbnail(int thumbnail) {
         this.thumbnail = thumbnail;
     }
+
+
 }

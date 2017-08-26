@@ -15,7 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EmailAddressEntryActivity"></activity>
+        <activity android:name=".EmailAddressEntryActivity" />
+        <activity android:name=".FloorsActivity" />
+        <activity android:name=".Floor1Activity" />
+        <activity android:name=".Floor1MapActivity"></activity>
     </application>
 
 </manifest>

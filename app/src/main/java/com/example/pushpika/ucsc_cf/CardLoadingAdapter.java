@@ -75,13 +75,6 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
         else{
             holder.availabilityColor.setBackgroundColor(Color.parseColor("#FF0000"));
         }
-        //holder.quantity.getSelectedItem();
-//        if (album.getIsOrdered()){
-//            holder.addToOrder.setText(R.string.order_added);
-//            holder.addToOrder.setTextColor(Color.parseColor("#FC7A10"));
-//            holder.addToOrder.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//            holder.addToOrder.setEnabled(false);
-//        }
 
         // loading album cover using Glide library
         Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
@@ -102,11 +95,11 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
                                     //update
 
                                     try {
-                                        if (albumList.get(position).getIsAvailable().equals("Yes")){
-                                            myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("No");
+                                        if (albumList.get(position).getIsAvailable().equals("Available")){
+                                            myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("Not Available");
                                         }
                                         else{
-                                            myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("Yes");
+                                            myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("Available");
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace();
