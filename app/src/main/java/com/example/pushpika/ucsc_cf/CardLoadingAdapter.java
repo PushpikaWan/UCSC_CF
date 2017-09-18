@@ -37,6 +37,7 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
 
         public MyHorizontalViewHolder(View view) {
             super(view);
+
             stoleName = (TextView) view.findViewById(R.id.stole_name);
             stoleNumber = (TextView) view.findViewById(R.id.stole_number);
             availability = (TextView) view.findViewById(R.id.availability);
@@ -68,7 +69,7 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
         final CompanyCard album = albumList.get(position);
         holder.stoleName.setText(album.getStoleName());
         holder.availability.setText(album.getIsAvailable());
-        holder.stoleNumber.setText("Stole No : "+album.getStoleNumber());
+        holder.stoleNumber.setText("Stole No : "+album.getStoleID());
         if (album.getIsAvailable().equals("Available")){
             holder.availabilityColor.setBackgroundColor(Color.parseColor("#00FF00"));
         }

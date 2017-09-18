@@ -23,7 +23,7 @@ import java.util.Map;
 
 import static com.example.pushpika.ucsc_cf.MainActivity.myRef;
 
-public class Floor1Activity extends AppCompatActivity {
+public class FloorDActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private FloorCardLoadingAdapter adapter;
@@ -33,10 +33,10 @@ public class Floor1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_floors_base);
+        setContentView(R.layout.activity_floor_d);
 
         if(getSupportActionBar() != null){
-            getSupportActionBar().setTitle("W002");
+            getSupportActionBar().setTitle("D");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
@@ -46,7 +46,7 @@ public class Floor1Activity extends AppCompatActivity {
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new Floor1Activity.GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new FloorDActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
@@ -118,11 +118,12 @@ public class Floor1Activity extends AppCompatActivity {
             Map singleUser = (Map) entry;
             //Get phone field and append to list
 
-            if ( singleUser.get("floor").toString().equals("W002")){
+            if ( singleUser.get("floor").toString().equals("D")){
                 CompanyCard a = new CompanyCard(singleUser.get("stoleName").toString(),
                         singleUser.get("isAvailable").toString(),
                         singleUser.get("authEmails").toString(),
                         (long)singleUser.get("stoleNumber"),
+                        singleUser.get("stoleID").toString(),
                         i,
                         singleUser.get("floor").toString(),
                         covers[0]);
@@ -190,8 +191,7 @@ public class Floor1Activity extends AppCompatActivity {
     }
 
     public void goFloors(View view){
-        Intent intent = new Intent(Floor1Activity.this,Floor1MapActivity.class);
+        Intent intent = new Intent(FloorDActivity.this,FloorDMapActivity.class);
         startActivity(intent);
     }
-
 }

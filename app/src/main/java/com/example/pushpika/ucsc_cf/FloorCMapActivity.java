@@ -16,28 +16,30 @@ import java.util.Map;
 
 import static com.example.pushpika.ucsc_cf.MainActivity.myRef;
 
-public class Floor1MapActivity extends AppCompatActivity {
+public class FloorCMapActivity extends AppCompatActivity {
 
-    TextView n1,n2,n3,n4,n5,n6,n7,n8,n9;
+
+    TextView n1,n2,n3,n4,n5,n6,n7,n8,n9,n10;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_floor1_map);
+        setContentView(R.layout.activity_floor_cmap);
 
 
         if(getSupportActionBar() != null){
-            getSupportActionBar().setTitle("W002");
+            getSupportActionBar().setTitle("C");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        n1 = (TextView) findViewById(R.id.n_1);
-        n2 = (TextView) findViewById(R.id.n_2);
-        n3 = (TextView) findViewById(R.id.n_3);
-        n4 = (TextView) findViewById(R.id.n_4);
-        n5 = (TextView) findViewById(R.id.n_5);
-        n6 = (TextView) findViewById(R.id.n_6);
-        n7 = (TextView) findViewById(R.id.n_7);
-        n8 = (TextView) findViewById(R.id.n_8);
-        n9 = (TextView) findViewById(R.id.n_9);
+        n1 = (TextView) findViewById(R.id.n_9);
+        n2 = (TextView) findViewById(R.id.n_7);
+        n3 = (TextView) findViewById(R.id.n_5);
+        n4 = (TextView) findViewById(R.id.n_3);
+        n5 = (TextView) findViewById(R.id.n_1);
+        n6 = (TextView) findViewById(R.id.n_2);
+        n7 = (TextView) findViewById(R.id.n_4);
+        n8 = (TextView) findViewById(R.id.n_6);
+        n9 = (TextView) findViewById(R.id.n_8);
+        n10 = (TextView) findViewById(R.id.n_10);
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -95,12 +97,12 @@ public class Floor1MapActivity extends AppCompatActivity {
             Map singleUser = (Map) entry;
             //Get phone field and append to list
 
-           //singleUser.get("floor").toString().equals("W002"))
+            //singleUser.get("floor").toString().equals("W002"))
 
-                        //singleUser.get("isAvailable").toString()
+            //singleUser.get("isAvailable").toString()
 
-            if((long)singleUser.get("stoleNumber")==1){
-                n1.setText("1");
+            if(singleUser.get("stoleID").equals("C1")){
+                n1.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
                 if(isAvailable(singleUser.get("isAvailable").toString())){
                     n1.setBackgroundColor(Color.parseColor("#00FF00"));
                 }
@@ -108,8 +110,8 @@ public class Floor1MapActivity extends AppCompatActivity {
                     n1.setBackgroundColor(Color.parseColor("#FF0000"));
                 }
             }
-            else if((long)singleUser.get("stoleNumber")==2){
-                n2.setText("2");
+            else if(singleUser.get("stoleID").equals("C2")){
+                n2.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
                 if(isAvailable(singleUser.get("isAvailable").toString())){
                     n2.setBackgroundColor(Color.parseColor("#00FF00"));
                 }
@@ -117,57 +119,78 @@ public class Floor1MapActivity extends AppCompatActivity {
                     n2.setBackgroundColor(Color.parseColor("#FF0000"));
                 }
             }
-            else if((long)singleUser.get("stoleNumber")==3){
-                n3.setText("3");
+            else if(singleUser.get("stoleID").equals("C3")){
+                n3.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
                 if(isAvailable(singleUser.get("isAvailable").toString())){
                     n3.setBackgroundColor(Color.parseColor("#00FF00"));
                 }
                 else{
                     n3.setBackgroundColor(Color.parseColor("#FF0000"));
                 }
-
             }
-            else if((long)singleUser.get("stoleNumber")==4){
-                n4.setText("4");
+            else if(singleUser.get("stoleID").equals("C4")){
+                n4.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
                 if(isAvailable(singleUser.get("isAvailable").toString())){
                     n4.setBackgroundColor(Color.parseColor("#00FF00"));
                 }
                 else{
                     n4.setBackgroundColor(Color.parseColor("#FF0000"));
                 }
-
             }
-            else if((long)singleUser.get("stoleNumber")==5){
-                n6.setText("5");
+            else if(singleUser.get("stoleID").equals("C5")){
+                n5.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
+                if(isAvailable(singleUser.get("isAvailable").toString())){
+                    n5.setBackgroundColor(Color.parseColor("#00FF00"));
+                }
+                else{
+                    n5.setBackgroundColor(Color.parseColor("#FF0000"));
+                }
+            }
+            else if(singleUser.get("stoleID").equals("C6")){
+                n6.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
                 if(isAvailable(singleUser.get("isAvailable").toString())){
                     n6.setBackgroundColor(Color.parseColor("#00FF00"));
                 }
                 else{
                     n6.setBackgroundColor(Color.parseColor("#FF0000"));
                 }
-
             }
-            else if((long)singleUser.get("stoleNumber")==6){
-                n7.setText("6");
+            else if(singleUser.get("stoleID").equals("C7")){
+                n7.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
                 if(isAvailable(singleUser.get("isAvailable").toString())){
                     n7.setBackgroundColor(Color.parseColor("#00FF00"));
                 }
                 else{
                     n7.setBackgroundColor(Color.parseColor("#FF0000"));
                 }
-
             }
-            else if((long)singleUser.get("stoleNumber")==7){
-                n9.setText("7");
+            else if(singleUser.get("stoleID").equals("C8")){
+                n8.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
+                if(isAvailable(singleUser.get("isAvailable").toString())){
+                    n8.setBackgroundColor(Color.parseColor("#00FF00"));
+                }
+                else{
+                    n8.setBackgroundColor(Color.parseColor("#FF0000"));
+                }
+            }
+            else if(singleUser.get("stoleID").equals("C9")){
+                n9.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
                 if(isAvailable(singleUser.get("isAvailable").toString())){
                     n9.setBackgroundColor(Color.parseColor("#00FF00"));
                 }
                 else{
                     n9.setBackgroundColor(Color.parseColor("#FF0000"));
                 }
-
             }
-
+            else if(singleUser.get("stoleID").equals("C10")){
+                n10.setText(singleUser.get("stoleID")+"\n"+singleUser.get("stoleName").toString());
+                if(isAvailable(singleUser.get("isAvailable").toString())){
+                    n10.setBackgroundColor(Color.parseColor("#00FF00"));
+                }
+                else{
+                    n10.setBackgroundColor(Color.parseColor("#FF0000"));
+                }
+            }
             else{
 
             }
@@ -181,6 +204,5 @@ public class Floor1MapActivity extends AppCompatActivity {
         }
         return false;
     }
-
 
 }

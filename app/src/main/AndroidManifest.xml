@@ -17,8 +17,14 @@
         </activity>
         <activity android:name=".EmailAddressEntryActivity" />
         <activity android:name=".FloorsActivity" />
-        <activity android:name=".Floor1Activity" />
-        <activity android:name=".Floor1MapActivity"></activity>
+        <activity android:name=".FloorAActivity" />
+        <activity android:name=".FloorAMapActivity" />
+        <activity android:name=".FloorBActivity" />
+        <activity android:name=".FloorBMapActivity" />
+        <activity android:name=".FloorCActivity" />
+        <activity android:name=".FloorCMapActivity" />
+        <activity android:name=".FloorDActivity" />
+        <activity android:name=".FloorDMapActivity"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,5 @@
 package com.example.pushpika.ucsc_cf;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +9,8 @@ import android.widget.ListView;
 
 public class FloorsActivity extends AppCompatActivity {
 
-    static final String[] FLOORS = new String[]{"W002","E02","Mini Audi"};
-    static final String[] FLOORSDESC = new String[]{"at MainBuilding","at .......","there sdsdfsdfsd"};
+    static final String[] FLOORS = new String[]{"A","B","C","D"};
+    static final String[] FLOORSDESC = new String[]{"Ground Floor","Ground Floor","Second Floor","Second Floor"};
     ListView simpleList;
 
     @Override
@@ -33,7 +32,19 @@ public class FloorsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
              //Log.d("Item clicked at","pos"+position);
                 if (position == 0){
-                    Intent intent = new Intent(FloorsActivity.this,Floor1Activity.class);
+                    Intent intent = new Intent(FloorsActivity.this,FloorAActivity.class);
+                    startActivity(intent);
+                }
+                else if (position == 1){
+                    Intent intent = new Intent(FloorsActivity.this,FloorBActivity.class);
+                    startActivity(intent);
+                }
+                else if (position == 2){
+                    Intent intent = new Intent(FloorsActivity.this,FloorCActivity.class);
+                    startActivity(intent);
+                }
+                else if (position == 3){
+                    Intent intent = new Intent(FloorsActivity.this,FloorDActivity.class);
                     startActivity(intent);
                 }
             }

@@ -1,7 +1,6 @@
 package com.example.pushpika.ucsc_cf;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
@@ -16,42 +15,38 @@ import android.view.View;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+import static com.example.pushpika.ucsc_cf.MainActivity.myRef;
+
+public class FloorBActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private CardLoadingAdapter adapter;
+    private FloorCardLoadingAdapter adapter;
     private List<CompanyCard> albumList;
-    public static DatabaseReference myRef,userRef;
-    public static String userEmailAddress;
-    public static boolean isAdmin = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_floor_b);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle("B");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         albumList = new ArrayList<>();
-        adapter = new CardLoadingAdapter(this, albumList);
+        adapter = new FloorCardLoadingAdapter(this, albumList);
 
-        //firebase init
-        myRef = FirebaseDatabase.getInstance().getReference().child("Stoles");
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
-        setEmailAddress();
-        setAdminList();
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new FloorBActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
@@ -89,24 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setEmailAddress(){
-
-        SharedPreferences settings = getSharedPreferences("prefs", 0);
-        boolean firstRun = settings.getBoolean("firstRun", true);
-
-        //final Intent intent = new Intent(this, LoginActivity.class);
-
-        userEmailAddress = settings.getString("Email_Address","no");
-
-        if (firstRun) {
-            // here run your first-time instructions, for example :
-            Intent intent = new Intent(this,EmailAddressEntryActivity.class);
-            startActivity(intent);
-            finish();
-
-        }
-
-    }
     private void prepareAlbums() {
 
         myRef.addListenerForSingleValueEvent(
@@ -141,20 +118,22 @@ public class MainActivity extends AppCompatActivity {
             Map singleUser = (Map) entry;
             //Get phone field and append to list
 
-            CompanyCard a = new CompanyCard(singleUser.get("stoleName").toString(),
-                    singleUser.get("isAvailable").toString(),
-                    singleUser.get("authEmails").toString(),
-                    (long)singleUser.get("stoleNumber"),
-                    singleUser.get("stoleID").toString(),
-                    i,
-                    singleUser.get("floor").toString(),
-                    covers[0]);
+            if ( singleUser.get("floor").toString().equals("B")){
+                CompanyCard a = new CompanyCard(singleUser.get("stoleName").toString(),
+                        singleUser.get("isAvailable").toString(),
+                        singleUser.get("authEmails").toString(),
+                        (long)singleUser.get("stoleNumber"),
+                        singleUser.get("stoleID").toString(),
+                        i,
+                        singleUser.get("floor").toString(),
+                        covers[0]);
 
-            if( albumList.size() > i && albumList.get(i).getStoleName().equals(singleUser.get("stoleName").toString())){
-                albumList.get(i).setIsAvailable( singleUser.get("isAvailable").toString());
-            }
-            else{
-                albumList.add(a);
+                if( albumList.size() > i && albumList.get(i).getStoleName().equals(singleUser.get("stoleName").toString())){
+                    albumList.get(i).setIsAvailable( singleUser.get("isAvailable").toString());
+                }
+                else{
+                    albumList.add(a);
+                }
             }
 
             i++;
@@ -163,35 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         adapter.notifyDataSetChanged();
-    }
-
-    private void setAdminList(){
-
-        userRef.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        //Get map of users in datasnapshot
-                        List<Object> users= (List<Object>) dataSnapshot.getValue();
-
-                        for (Object entry : users){
-
-                            //Get user map
-                            Map singleUser = (Map) entry;
-                            //Get phone field and append to list
-
-                            if (singleUser.get("email").toString().equals(userEmailAddress)){
-                                isAdmin = true;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                    }
-                });
-
     }
 
     /**
@@ -241,8 +191,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goFloors(View view){
-        Intent intent = new Intent(MainActivity.this,FloorsActivity.class);
+        Intent intent = new Intent(FloorBActivity.this,FloorBMapActivity.class);
         startActivity(intent);
     }
-
 }

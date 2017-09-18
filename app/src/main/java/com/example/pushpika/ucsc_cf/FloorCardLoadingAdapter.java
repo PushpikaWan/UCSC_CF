@@ -63,7 +63,7 @@ public class FloorCardLoadingAdapter extends RecyclerView.Adapter<FloorCardLoadi
         final CompanyCard album = albumList.get(position);
         holder.stoleName.setText(album.getStoleName());
         holder.availability.setText(album.getIsAvailable());
-        holder.stoleNumber.setText("Stole No : "+album.getStoleNumber());
+        holder.stoleNumber.setText("Stole No : "+album.getStoleID());
         if (album.getIsAvailable().equals("Available")){
             holder.availabilityColor.setBackgroundColor(Color.parseColor("#00FF00"));
         }
