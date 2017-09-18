@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
     public static DatabaseReference myRef,userRef;
     public static String userEmailAddress;
     public static boolean isAdmin = false;
-
+    public boolean isCompanySpecific = false;
+    public String enableCompanies ="ALL";
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         albumList = new ArrayList<>();
         adapter = new CardLoadingAdapter(this, albumList);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.float_button);
 
         //firebase init
         myRef = FirebaseDatabase.getInstance().getReference().child("Stoles");
@@ -135,6 +140,58 @@ public class MainActivity extends AppCompatActivity {
 
         //iterate through each user, ignoring their UID
         int i = 0; //hard coded value not good
+        if(isCompanySpecific){
+           companySpecificLoader(stoles);
+        }
+        else{
+            for (Object entry : stoles){
+
+                //Get user map
+                Map singleUser = (Map) entry;
+                //Get phone field and append to list
+
+                CompanyCard a = new CompanyCard(singleUser.get("stoleName").toString(),
+                        singleUser.get("isAvailable").toString(),
+                        singleUser.get("authEmails").toString(),
+                        (long)singleUser.get("stoleNumber"),
+                        singleUser.get("stoleID").toString(),
+                        i,
+                        singleUser.get("floor").toString(),
+                        covers[0]);
+
+                if (MainActivity.userEmailAddress.equals(singleUser.get("authEmails").toString())){
+                    isCompanySpecific = true;
+                    enableCompanies =singleUser.get("stoleName").toString();
+                }
+                if( albumList.size() > i && albumList.get(i).getStoleID().equals(singleUser.get("stoleID").toString())){
+                    albumList.get(i).setIsAvailable( singleUser.get("isAvailable").toString());
+                }
+                else{
+                    albumList.add(a);
+                }
+
+                i++;
+            }
+            if(isCompanySpecific){
+                albumList.clear();
+                companySpecificLoader(stoles);
+            }
+            else{
+                floatingActionButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private void companySpecificLoader(List <Object> stoles){
+
+        int[] covers = new int[]{
+                R.drawable.album1,
+                R.drawable.album1,
+                R.drawable.album1
+        };
+        int i = 0;
         for (Object entry : stoles){
 
             //Get user map
@@ -150,19 +207,18 @@ public class MainActivity extends AppCompatActivity {
                     singleUser.get("floor").toString(),
                     covers[0]);
 
-            if( albumList.size() > i && albumList.get(i).getStoleName().equals(singleUser.get("stoleName").toString())){
-                albumList.get(i).setIsAvailable( singleUser.get("isAvailable").toString());
-            }
-            else{
-                albumList.add(a);
-            }
+            if (singleUser.get("stoleName").toString().equals(enableCompanies)){
 
-            i++;
+                if( albumList.size() > i && albumList.get(i).getStoleID().equals(singleUser.get("stoleID").toString())){
+                    albumList.get(i).setIsAvailable( singleUser.get("isAvailable").toString());
+                }
+                else{
+                    albumList.add(a);
+                }
+
+                i++;
+            }
         }
-
-
-
-        adapter.notifyDataSetChanged();
     }
 
     private void setAdminList(){

@@ -94,13 +94,13 @@ public class CardLoadingAdapter extends RecyclerView.Adapter<CardLoadingAdapter.
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //update
-
+                    Log.d("CardLoading","change state pos:"+position+" availability :"+albumList.get(position).getIsAvailable()+ String.valueOf(albumList.get(position).getKey()));
                                     try {
                                         if (albumList.get(position).getIsAvailable().equals("Available")){
-                                            myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("Not Available");
+                                            myRef.child(String.valueOf(albumList.get(position).getStoleNumber() - 1)).child("isAvailable").setValue("Not Available");
                                         }
                                         else{
-                                            myRef.child(String.valueOf(albumList.get(position).getKey())).child("isAvailable").setValue("Available");
+                                            myRef.child(String.valueOf(albumList.get(position).getStoleNumber() - 1)).child("isAvailable").setValue("Available");
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace();

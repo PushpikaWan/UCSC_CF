@@ -128,7 +128,7 @@ public class FloorDActivity extends AppCompatActivity {
                         singleUser.get("floor").toString(),
                         covers[0]);
 
-                if( albumList.size() > i && albumList.get(i).getStoleName().equals(singleUser.get("stoleName").toString())){
+                if( albumList.size() > i && albumList.get(i).getStoleID().equals(singleUser.get("stoleID").toString())){
                     albumList.get(i).setIsAvailable( singleUser.get("isAvailable").toString());
                 }
                 else{
