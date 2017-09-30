@@ -132,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
     public void collectCompanyData(List<Object> stoles)  {
 
         int[] covers = new int[]{
-                R.drawable.album1,
-                R.drawable.album1,
-                R.drawable.album1
+                R.drawable.default_comp,
+                R.drawable.default_comp,
+                R.drawable.default_comp
         };
 
 
@@ -187,9 +187,9 @@ public class MainActivity extends AppCompatActivity {
     private void companySpecificLoader(List <Object> stoles){
 
         int[] covers = new int[]{
-                R.drawable.album1,
-                R.drawable.album1,
-                R.drawable.album1
+                R.drawable.default_comp,
+                R.drawable.default_comp,
+                R.drawable.default_comp
         };
         int i = 0;
         for (Object entry : stoles){

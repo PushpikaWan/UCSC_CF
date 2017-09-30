@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.database.ChildEventListener;
@@ -101,12 +102,25 @@ public class FloorCActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
     public void collectCompanyData(List<Object> stoles)  {
 
         int[] covers = new int[]{
-                R.drawable.album1,
-                R.drawable.album1,
-                R.drawable.album1
+                R.drawable.default_comp,
+                R.drawable.default_comp,
+                R.drawable.default_comp
         };
 
 

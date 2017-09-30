@@ -1,5 +1,7 @@
 package com.example.pushpika.ucsc_cf;
 
+import android.util.Log;
+
 /**
  * Created by pushpika on 8/25/17.
  */
@@ -13,6 +15,31 @@ public class CompanyCard {
     private int key;
     private String floor;
     private int thumbnail;
+
+    int[] company_pics = new int[]{
+            /* default one*/ R.drawable.default_comp,
+            R.drawable.simcentric,
+            R.drawable.inova_it,
+            R.drawable.virtusa, R.drawable.virtusa,
+            R.drawable.sysco_labs, R.drawable.sysco_labs, R.drawable.sysco_labs,
+            R.drawable.synopsys,
+            R.drawable.codegen, R.drawable.codegen,
+            R.drawable.ifs,
+            R.drawable.camms,
+            R.drawable.eypax,
+            R.drawable.f_ortude,R.drawable.f_ortude,
+            R.drawable.geveo,
+            R.drawable.ninty_nine_x,
+            R.drawable.vizuamatix,
+            R.drawable.mobitel,
+                R.drawable.default_comp,R.drawable.default_comp,R.drawable.default_comp,
+    /*earth university*/            R.drawable.default_comp,
+                R.drawable.default_comp,
+            R.drawable.orange_hrm,
+            R.drawable.wso2,
+            R.drawable.mass, R.drawable.mass,
+            R.drawable.default_comp, R.drawable.default_comp
+    };
 
     public CompanyCard() {
     }
@@ -70,7 +97,12 @@ public class CompanyCard {
 
 
     public int getThumbnail() {
-        return thumbnail;
+        Log.d("Company Card","is : "+this.stoleNumber);
+        if(this.stoleNumber < company_pics.length){
+            Log.d("Company ","company pic selected");
+            return company_pics[(int) this.stoleNumber];
+        }
+        return company_pics[0];
     }
 
     public void setThumbnail(int thumbnail) {

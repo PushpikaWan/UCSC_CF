@@ -3,6 +3,7 @@ package com.example.pushpika.ucsc_cf;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,6 +13,19 @@ public class FloorsActivity extends AppCompatActivity {
     static final String[] FLOORS = new String[]{"A","B","C","D"};
     static final String[] FLOORSDESC = new String[]{"Ground Floor","Ground Floor","Second Floor","Second Floor"};
     ListView simpleList;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
