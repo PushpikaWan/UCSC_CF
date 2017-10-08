@@ -1,5 +1,6 @@
 package com.example.pushpika.ucsc_cf;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     public String enableCompanies ="ALL";
     private FloatingActionButton floatingActionButton;
 
+    // Creating Progress dialog.
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,49 +52,15 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CardLoadingAdapter(this, albumList);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.float_button);
 
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         //firebase init
         myRef = FirebaseDatabase.getInstance().getReference().child("Stoles");
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         setEmailAddress();
-        setAdminList();
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-
-        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.d("Main activity","child changed");
-                prepareAlbums();
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        prepareAlbums();
-
 
     }
 
@@ -109,6 +79,45 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
 
+        }
+        else{
+            setAdminList();
+            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(adapter);
+
+
+            myRef.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Log.d("Main activity","child changed");
+                    prepareAlbums();
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            prepareAlbums();
         }
 
     }
@@ -178,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
                 floatingActionButton.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
             }
         }
 
@@ -219,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                 i++;
             }
         }
+        progressDialog.dismiss();
     }
 
     private void setAdminList(){

@@ -30,15 +30,17 @@ public class CompanyCard {
             R.drawable.f_ortude,R.drawable.f_ortude,
             R.drawable.geveo,
             R.drawable.ninty_nine_x,
-            R.drawable.vizuamatix,
+            R.drawable.vm_matix,
             R.drawable.mobitel,
-                R.drawable.default_comp,R.drawable.default_comp,R.drawable.default_comp,
-    /*earth university*/            R.drawable.default_comp,
-                R.drawable.default_comp,
+            R.drawable.rez_gateway,
+            R.drawable.ismapac,
+            R.drawable.nable,
+            R.drawable.earth_uni,
+            R.drawable.ncinga,
             R.drawable.orange_hrm,
             R.drawable.wso2,
             R.drawable.mass, R.drawable.mass,
-            R.drawable.default_comp, R.drawable.default_comp
+            R.drawable.cambio, R.drawable.cambio
     };
 
     public CompanyCard() {

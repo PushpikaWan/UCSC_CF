@@ -9,5 +9,4 @@
     <dimen name="card_image_view_padding">10dp</dimen>
     <dimen name="card_partition_size">50dp</dimen>
     <dimen name="availability_square_size">30dp</dimen>
-    <dimen name="card_padding_between_two_layers">20dp</dimen>
 </resources>

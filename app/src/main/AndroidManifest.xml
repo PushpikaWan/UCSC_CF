@@ -8,23 +8,31 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashScreenActivity"  android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".EmailAddressEntryActivity" />
         <activity android:name=".FloorsActivity" />
         <activity android:name=".FloorAActivity" />
-        <activity android:name=".FloorAMapActivity" />
+        <activity
+            android:name=".FloorAMapActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".FloorBActivity" />
-        <activity android:name=".FloorBMapActivity" />
+        <activity
+            android:name=".FloorBMapActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".FloorCActivity" />
-        <activity android:name=".FloorCMapActivity" />
+        <activity
+            android:name=".FloorCMapActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".FloorDActivity" />
-        <activity android:name=".FloorDMapActivity"></activity>
+        <activity
+            android:name=".FloorDMapActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
